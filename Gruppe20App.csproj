@@ -18,4 +18,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Remove="Gruppe20App.Tests\**" />
+		<Content Remove="Gruppe20App.Tests\**" />
+		<EmbeddedResource Remove="Gruppe20App.Tests\**" />
+		<None Remove="Gruppe20App.Tests\**" />
+	</ItemGroup>
+
 </Project>
