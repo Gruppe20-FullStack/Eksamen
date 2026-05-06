@@ -1,5 +1,6 @@
 // Krav 3 - Kobler ApplicationDbContext inn i Program.cs:
 using Gruppe20App.Data;
+using Gruppe20App.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,9 @@ builder.Services.AddControllersWithViews();
 // Implementerer: 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Implementerer krav 8:
+builder.Services.AddHttpClient<BrregService>();
 
 var app = builder.Build();
 

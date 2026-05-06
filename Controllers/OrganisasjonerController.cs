@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gruppe20App.Data;
 using Gruppe20App.Models;
+using Gruppe20App.Services;
 
 namespace Gruppe20App.Controllers
 {
     public class OrganisasjonerController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly BrregService _brregService;
 
-        public OrganisasjonerController(ApplicationDbContext context)
+        public OrganisasjonerController(ApplicationDbContext context, BrregService brregService)
         {
             _context = context;
+            _brregService = brregService;
         }
 
         /*
@@ -61,6 +64,14 @@ namespace Gruppe20App.Controllers
             return View();
         }
 
+
+        // GET: Organisasjoner/Import
+        public IActionResult Import()
+        {
+            return View();
+        }
+
+
         // POST: Organisasjoner/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -76,6 +87,34 @@ namespace Gruppe20App.Controllers
             }
             return View(organisasjon);
         }
+
+
+        // POST: Import
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Import(string organisasjonsnummer)
+        {
+            var data = await _brregService.HentOrganisasjon(organisasjonsnummer);
+
+            if (data == null)
+            {
+                ModelState.AddModelError("", "Fant ikke organisasjon");
+                return View();
+            }
+
+            var org = new Organisasjon
+            {
+                Navn = data.navn ?? "Ukjent",
+                Organisasjonsnummer = data.organisasjonsnummer ?? "",
+                Organisasjonsform = data.organisasjonsform?.beskrivelse ?? ""
+            };
+
+            _context.Organisasjoner.Add(org);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Organisasjoner/Edit/5
         public async Task<IActionResult> Edit(int? id)

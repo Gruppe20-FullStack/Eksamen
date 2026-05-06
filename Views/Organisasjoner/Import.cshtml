@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Import";
+}
+
+<h1>Importer organisasjon</h1>
+
+<form asp-action="Import" method="post">
+    <div class="form-group">
+        <label>Organisasjonsnummer</label>
+        <input type="text" name="organisasjonsnummer" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Hent fra Brreg</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <p class="text-danger">Fant ikke organisasjon</p>
+}
