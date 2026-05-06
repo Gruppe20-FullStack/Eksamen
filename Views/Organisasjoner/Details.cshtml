@@ -1,0 +1,36 @@
+﻿@model Gruppe20App.Models.Organisasjon
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Organisasjon</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Navn)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Navn)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Organisasjonsnummer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Organisasjonsnummer)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Organisasjonsform)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Organisasjonsform)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

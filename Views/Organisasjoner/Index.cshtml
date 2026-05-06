@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Gruppe20App.Models.Organisasjon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Navn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organisasjonsnummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organisasjonsform)
+            </th>
+
+            <th>
+                Navn og rolle
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Navn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organisasjonsnummer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organisasjonsform)
+            </td>
+
+            <td>
+                @foreach (var person in item.RollePersoner)
+                {
+                    <span>@person.Navn - @person.Rolle</span><br />
+                }
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

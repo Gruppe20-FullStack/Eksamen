@@ -20,5 +20,6 @@ namespace Gruppe20App.Models
         public string? Organisasjonsform {  get; set; }
 
         public ICollection<RollePerson> RollePersoner { get; set; } = new List<RollePerson>();
+        
     }
 }
